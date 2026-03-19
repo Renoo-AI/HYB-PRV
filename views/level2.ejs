@@ -1,4 +1,4 @@
-<%- include('layout', { title: 'Level 2: Hidden Comment Finder', levelNumber: 2, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 2: Hidden Comment Finder', levelNumber: 2, body: `
     <div class="challenge-box">
         <h2>Comments can be tricky!</h2>
         <p>Sometimes developers leave comments in their code that they shouldn't have.</p>

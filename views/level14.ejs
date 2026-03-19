@@ -1,7 +1,7 @@
-<%- include('layout', { title: 'Level 14: Hidden Input Field', levelNumber: 14, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 14: Hidden Input Field', levelNumber: 14, body: `
     <div class="challenge-box">
         <h2>Hidden doesn't mean secure</h2>
-        <form method="POST" action="/level/14/update">
+        <form method="POST" action="/level/14/update${typeof isolated !== 'undefined' && isolated ? '?isolated=true' : ''}">
             <input type="hidden" name="isAdmin" value="false">
             <button type="submit" class="btn btn-primary">Update Profile</button>
         </form>

@@ -1,7 +1,7 @@
-<%- include('layout', { title: 'Level 13: Client-Side Validation Bypass', levelNumber: 13, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 13: Client-Side Validation Bypass', levelNumber: 13, body: `
     <div class="challenge-box">
         <h2>Bypass JS validation</h2>
-        <form method="POST" action="/level/13/register" onsubmit="return validateForm()">
+        <form method="POST" action="/level/13/register${typeof isolated !== 'undefined' && isolated ? '?isolated=true' : ''}" onsubmit="return validateForm()">
             <input type="text" name="username" id="username" placeholder="Username (min 5 chars)" required>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>

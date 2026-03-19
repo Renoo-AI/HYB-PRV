@@ -1,7 +1,7 @@
-<%- include('layout', { title: 'Level 17: Search Box XSS Intro', levelNumber: 17, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 17: Search Box XSS Intro', levelNumber: 17, body: `
     <div class="challenge-box">
         <h2>Reflected XSS Basics</h2>
-        <form method="GET" action="/level/17">
+        <form method="GET" action="/level/17${typeof isolated !== 'undefined' && isolated ? '?isolated=true' : ''}">
             <input type="text" name="q" placeholder="Search..." required value="${query}">
             <button type="submit" class="btn btn-primary">Search</button>
         </form>

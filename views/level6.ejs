@@ -1,7 +1,7 @@
-<%- include('layout', { title: 'Level 6: Simple Login Bypass', levelNumber: 6, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 6: Simple Login Bypass', levelNumber: 6, body: `
     <div class="challenge-box">
         <h2>SQL Injection Login</h2>
-        <form method="POST" action="/level/6/login">
+        <form method="POST" action="/level/6/login${typeof isolated !== 'undefined' && isolated ? '?isolated=true' : ''}">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit" class="btn btn-primary">Login</button>

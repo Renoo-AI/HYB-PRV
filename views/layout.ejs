@@ -12,8 +12,13 @@
         <%- include('partials/sidebar') %>
         <main id="main-content">
             <header>
-                <h1><%- title %></h1>
-                <div class="progress-bar">
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <h1><%- title %></h1>
+                    <a href="/level/<%- levelNumber %>?isolated=true" target="_blank" class="btn btn-primary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                        Open Isolated <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                <div class="progress-bar" style="margin-top: 10px;">
                     Flags: <span id="flag-count">0</span> / 20
                 </div>
             </header>

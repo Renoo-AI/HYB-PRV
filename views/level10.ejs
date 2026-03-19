@@ -1,4 +1,4 @@
-<%- include('layout', { title: 'Level 10: Base64 Cookie Decode', levelNumber: 10, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 10: Base64 Cookie Decode', levelNumber: 10, body: `
     <div class="challenge-box">
         <h2>Decode and edit!</h2>
         <p>Your auth cookie value: <strong>${auth}</strong></p>

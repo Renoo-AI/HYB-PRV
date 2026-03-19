@@ -1,4 +1,4 @@
-<%- include('layout', { title: 'Level 3: Broken Image Clue', levelNumber: 3, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 3: Broken Image Clue', levelNumber: 3, body: `
     <div class="challenge-box">
         <h2>Where did the image go?</h2>
         <p>This image is broken, but maybe the path it points to holds a clue?</p>

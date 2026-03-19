@@ -1,4 +1,4 @@
-<%- include('layout', { title: 'Level 8: Price Manipulation', levelNumber: 8, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 8: Price Manipulation', levelNumber: 8, body: `
     <div class="challenge-box">
         <h2>Buy the flag!</h2>
         <p>The flag costs $100. Current price: <strong>$${price}</strong></p>

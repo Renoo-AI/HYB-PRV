@@ -1,4 +1,4 @@
-<%- include('layout', { title: 'Level 20: Multi-Step Final Challenge', levelNumber: 20, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 20: Multi-Step Final Challenge', levelNumber: 20, body: `
     <div class="challenge-box">
         <h2>Final Challenge</h2>
         <p>Combine your skills!</p>

@@ -1,4 +1,4 @@
-<%- include('layout', { title: 'Level 1: View Source Hunt', levelNumber: 1, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 1: View Source Hunt', levelNumber: 1, body: `
     <div class="challenge-box">
         <h2>Find the flag in the source code!</h2>
         <p>The developer hid something important inside the HTML source of this page.</p>

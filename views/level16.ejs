@@ -1,4 +1,4 @@
-<%- include('layout', { title: 'Level 16: File Name Guessing', levelNumber: 16, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 16: File Name Guessing', levelNumber: 16, body: `
     <div class="challenge-box">
         <h2>Backup files matter</h2>
         <p>I accidentally left a backup of the database in the public directory.</p>

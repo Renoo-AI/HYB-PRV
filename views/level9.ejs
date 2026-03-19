@@ -1,4 +1,4 @@
-<%- include('layout', { title: 'Level 9: Cookie Role Escalation', levelNumber: 9, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 9: Cookie Role Escalation', levelNumber: 9, body: `
     <div class="challenge-box">
         <h2>Cookies don't lie, right?</h2>
         <p>Your current role is: <strong>${role}</strong></p>

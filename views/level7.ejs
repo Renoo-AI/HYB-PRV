@@ -1,4 +1,4 @@
-<%- include('layout', { title: 'Level 7: URL Parameter Tampering', levelNumber: 7, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 7: URL Parameter Tampering', levelNumber: 7, body: `
     <div class="challenge-box">
         <h2>Change the parameter!</h2>
         <p>You are logged in as: <strong>${user}</strong></p>

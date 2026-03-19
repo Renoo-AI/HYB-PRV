@@ -1,4 +1,4 @@
-<%- include('layout', { title: 'Level 19: Path Traversal Lite', levelNumber: 19, body: `
+<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 19: Path Traversal Lite', levelNumber: 19, body: `
     <div class="challenge-box">
         <h2>dot dot slash</h2>
         <p>Viewing page: <strong>${page}</strong></p>
