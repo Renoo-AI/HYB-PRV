@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const port = 3000;
+const gameData = require('./gameData.js');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -11,6 +12,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Error handling middleware for bad paths
+app.use((err, req, res, next) => {
+    if (err instanceof URIError) {
+        return res.status(400).send('Bad Request: Invalid URI');
+    }
+    next(err);
+});
+
+// Prevent literal '..' in path traversal attempts from exposing stack traces or raw errors
+app.use((req, res, next) => {
+    if (req.path.includes('..')) {
+        return res.status(403).send('Forbidden: Path traversal detected.');
+    }
+    next();
+});
 
 // Routes
 app.get('/', (req, res) => {
@@ -237,6 +254,42 @@ app.get('/secret-admin-gate', (req, res) => {
     } else {
         res.send('Access Denied. Ensure step2 cookie is "completed"');
     }
+});
+
+app.post('/api/submit-flag', (req, res) => {
+    const { level, flag } = req.body;
+
+    if (!level || !flag) {
+        return res.json({ success: false, message: 'Missing level or flag' });
+    }
+
+    const levelData = gameData[level];
+    if (!levelData) {
+        return res.json({ success: false, message: 'Invalid level' });
+    }
+
+    if (flag.trim() === levelData.flag) {
+        return res.json({
+            success: true,
+            explanation: levelData.explanation
+        });
+    } else {
+        return res.json({ success: false, message: 'Incorrect flag. Try again!' });
+    }
+});
+
+app.get('/api/game-data', (req, res) => {
+    // Expose only non-sensitive data to the client
+    const safeData = {};
+    for (const key in gameData) {
+        safeData[key] = {
+            title: gameData[key].title,
+            skill: gameData[key].skill,
+            hints: gameData[key].hints
+            // Notice: We do NOT send the flag or explanation.
+        };
+    }
+    res.json(safeData);
 });
 
 if (require.main === module) {

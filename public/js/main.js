@@ -1,8 +1,16 @@
-document.addEventListener('DOMContentLoaded', () => {
-    initProgress();
-    initByteBot();
-    setupHints();
-    updateUI();
+let gameData = {};
+
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('/api/game-data');
+        gameData = await response.json();
+        initProgress();
+        initByteBot();
+        setupHints();
+        updateUI();
+    } catch (error) {
+        console.error("Failed to load game data:", error);
+    }
 });
 
 // --- Progress Tracking ---
@@ -64,23 +72,33 @@ function updateUI() {
 }
 
 // --- Flag Submission ---
-function submitFlag(level) {
+async function submitFlag(level) {
     const input = document.getElementById('flag-input').value.trim();
     const resultDiv = document.getElementById('flag-result');
-    const expected = gameData[level].flag;
 
-    if (input === expected) {
-        resultDiv.innerHTML = `<div class="success-msg">Correct! Flag secured.</div>
-            <div class="explanation-box">
-                <h3>Explanation: ${gameData[level].explanation.bug}</h3>
-                <p><strong>Why it matters:</strong> ${gameData[level].explanation.why}</p>
-                <p><strong>How to prevent:</strong> ${gameData[level].explanation.prevent}</p>
-                ${level < 20 ? `<a href="/level/${level + 1}" class="btn btn-primary mt-2">Next Level</a>` : '<p><strong>You finished all levels! Awesome job!</strong></p>'}
-            </div>`;
-        markLevelSolved(level);
-    } else {
-        resultDiv.innerHTML = `<div class="error-msg">Incorrect flag. Try again!</div>`;
-        byteReactToFail();
+    try {
+        const response = await fetch('/api/submit-flag', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ level: level, flag: input })
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            resultDiv.innerHTML = `<div class="success-msg">Correct! Flag secured.</div>
+                <div class="explanation-box">
+                    <h3>Explanation: ${data.explanation.bug}</h3>
+                    <p><strong>Why it matters:</strong> ${data.explanation.why}</p>
+                    <p><strong>How to prevent:</strong> ${data.explanation.prevent}</p>
+                    ${level < 20 ? `<a href="/level/${level + 1}" class="btn btn-primary mt-2">Next Level</a>` : '<p><strong>You finished all levels! Awesome job!</strong></p>'}
+                </div>`;
+            markLevelSolved(level);
+        } else {
+            resultDiv.innerHTML = `<div class="error-msg">${data.message || 'Incorrect flag. Try again!'}</div>`;
+            byteReactToFail();
+        }
+    } catch (error) {
+        resultDiv.innerHTML = `<div class="error-msg">Error communicating with server.</div>`;
     }
 }
 

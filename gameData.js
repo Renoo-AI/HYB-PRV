@@ -1,4 +1,4 @@
-const gameData = {
+module.exports = {
     1: {
         title: "View Source Hunt",
         skill: "inspecting page source",
