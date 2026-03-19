@@ -1,1 +1,31 @@
 Web Exploitation Playground listening at http://localhost:3000
+SyntaxError: Invalid or unexpected token in /app/views/level6.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+    at new Function (<anonymous>)
+    at Template.compile (/app/node_modules/ejs/lib/cjs/ejs.js:603:18)
+    at Object.compile (/app/node_modules/ejs/lib/cjs/ejs.js:359:18)
+    at handleCache (/app/node_modules/ejs/lib/cjs/ejs.js:216:16)
+    at tryHandleCache (/app/node_modules/ejs/lib/cjs/ejs.js:253:22)
+    at ejs.renderFile [as engine] (/app/node_modules/ejs/lib/cjs/ejs.js:444:12)
+    at View.render (/app/node_modules/express/lib/view.js:139:8)
+    at tryRender (/app/node_modules/express/lib/application.js:627:10)
+    at Function.render (/app/node_modules/express/lib/application.js:574:3)
+    at ServerResponse.render (/app/node_modules/express/lib/response.js:923:7)
+SyntaxError: Invalid or unexpected token in /app/views/level6.ejs while compiling ejs
+
+If the above error is not helpful, you may want to try EJS-Lint:
+https://github.com/RyanZim/EJS-Lint
+Or, if you meant to create an async function, pass `async: true` as an option.
+    at new Function (<anonymous>)
+    at Template.compile (/app/node_modules/ejs/lib/cjs/ejs.js:603:18)
+    at Object.compile (/app/node_modules/ejs/lib/cjs/ejs.js:359:18)
+    at handleCache (/app/node_modules/ejs/lib/cjs/ejs.js:216:16)
+    at tryHandleCache (/app/node_modules/ejs/lib/cjs/ejs.js:253:22)
+    at ejs.renderFile [as engine] (/app/node_modules/ejs/lib/cjs/ejs.js:444:12)
+    at View.render (/app/node_modules/express/lib/view.js:139:8)
+    at tryRender (/app/node_modules/express/lib/application.js:627:10)
+    at Function.render (/app/node_modules/express/lib/application.js:574:3)
+    at ServerResponse.render (/app/node_modules/express/lib/response.js:923:7)

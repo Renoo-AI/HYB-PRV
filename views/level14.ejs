@@ -5,9 +5,7 @@
             <input type="hidden" name="isAdmin" value="false">
             <button type="submit" class="btn btn-primary">Update Profile</button>
         </form>
-        <% if (typeof error !== 'undefined' && error) { %>
-            <p class="error-msg"><%= error %></p>
-        <% } %>
+        ${(typeof error !== 'undefined' && error) ? '<p class="error-msg">' + error + '</p>' : ''}
         <p>There's a hidden field that determines if you're an admin. Can you change it to true?</p>
     </div>
 ` }) %>

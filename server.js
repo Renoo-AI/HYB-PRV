@@ -198,8 +198,8 @@ app.get('/level/17', (req, res) => {
 });
 
 // Level 18: Profile Message Stored XSS
-let storedMessage = "Welcome to your profile!";
 app.get('/level/18', (req, res) => {
+    let storedMessage = req.cookies.profileMessage || "Welcome to your profile!";
     let flag = null;
     if (storedMessage.includes('<script>') || storedMessage.includes('alert(')) {
         flag = 'THM{stored_xss_master}';
@@ -207,7 +207,7 @@ app.get('/level/18', (req, res) => {
     res.render('level18', { message: storedMessage, flag: flag });
 });
 app.post('/level/18/message', (req, res) => {
-    storedMessage = req.body.message;
+    res.cookie('profileMessage', req.body.message);
     res.redirect('/level/18');
 });
 
@@ -238,6 +238,10 @@ app.get('/secret-admin-gate', (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Web Exploitation Playground listening at http://localhost:${port}`);
-});
+if (require.main === module) {
+    app.listen(port, () => {
+        console.log(`Web Exploitation Playground listening at http://localhost:${port}`);
+    });
+}
+
+module.exports = app;
