@@ -1,0 +1,12 @@
+<%- include('layout', { title: 'Level 17: Search Box XSS Intro', levelNumber: 17, body: `
+    <div class="challenge-box">
+        <h2>Reflected XSS Basics</h2>
+        <form method="GET" action="/level/17">
+            <input type="text" name="q" placeholder="Search..." required value="${query}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <p>Search results for: <strong>${query}</strong></p>
+        ${flag ? `<div class="success-msg">${flag}</div>` : ''}
+        <p>Try injecting a script tag like &lt;script&gt;alert(1)&lt;/script&gt;.</p>
+    </div>
+` }) %>

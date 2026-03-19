@@ -1,0 +1,9 @@
+<%- include('layout', { title: 'Level 12: Disabled Button Trick', levelNumber: 12, body: `
+    <div class="challenge-box">
+        <h2>Frontend security is fake</h2>
+        <form method="POST" action="/level/12/admin">
+            <button type="submit" class="btn btn-primary" disabled>Admin Panel</button>
+        </form>
+        <p>You can't click this button... or can you?</p>
+    </div>
+` }) %>

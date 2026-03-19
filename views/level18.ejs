@@ -1,0 +1,12 @@
+<%- include('layout', { title: 'Level 18: Profile Message Stored XSS', levelNumber: 18, body: `
+    <div class="challenge-box">
+        <h2>Stored XSS Master</h2>
+        <form method="POST" action="/level/18/message">
+            <input type="text" name="message" placeholder="New message..." required>
+            <button type="submit" class="btn btn-primary">Update Message</button>
+        </form>
+        <p>Your current message: ${message}</p>
+        ${flag ? `<div class="success-msg">${flag}</div>` : ''}
+        <p>Try saving a malicious script in your profile.</p>
+    </div>
+` }) %>

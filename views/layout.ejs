@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Exploitation Playground</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="app">
+        <%- include('partials/sidebar') %>
+        <main id="main-content">
+            <header>
+                <h1><%- title %></h1>
+                <div class="progress-bar">
+                    Flags: <span id="flag-count">0</span> / 20
+                </div>
+            </header>
+            <div class="content-body">
+                <%- body %>
+            </div>
+
+            <div class="hints-section">
+                <button id="btn-hint1" class="btn btn-hint">Hint 1</button>
+                <button id="btn-hint2" class="btn btn-hint">Hint 2</button>
+                <button id="btn-hint3" class="btn btn-hint">Hint 3</button>
+                <div id="hint-display"></div>
+            </div>
+
+            <div class="flag-submission">
+                <input type="text" id="flag-input" placeholder="THM{...}">
+                <button id="btn-submit-flag" class="btn btn-primary" onclick="submitFlag(<%- levelNumber %>)">Submit Flag</button>
+            </div>
+            <div id="flag-result"></div>
+        </main>
+
+        <%- include('partials/byte-chat') %>
+    </div>
+
+    <script src="/js/gameData.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        window.currentLevel = <%- levelNumber %>;
+    </script>
+</body>
+</html>

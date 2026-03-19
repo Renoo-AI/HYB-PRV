@@ -1,0 +1,7 @@
+<%- include('layout', { title: 'Level 15: IDOR Beginner Lab', levelNumber: 15, body: `
+    <div class="challenge-box">
+        <h2>Insecure Direct Object Reference</h2>
+        <p>Viewing profile for ID: <strong><%= id %></strong></p>
+        <p>What if you change the 'id' parameter to view someone else's profile? Try changing it to 2.</p>
+    </div>
+` }) %>

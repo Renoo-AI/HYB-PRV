@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Exploitation Playground</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="app">
+        <%- include('partials/sidebar') %>
+        <main id="main-content">
+            <header>
+                <h1>Welcome to the Web Exploitation Playground</h1>
+                <div class="progress-bar">
+                    Flags: <span id="flag-count">0</span> / 20
+                </div>
+            </header>
+            <div class="content-body">
+                <p>Welcome, hacker! Your journey begins here. You have 20 challenges to conquer.</p>
+                <p>No external tools are required. Everything can be solved using your browser.</p>
+                <p>Byte, your AI assistant, is in the bottom right corner ready to help.</p>
+
+                <a href="/level/1" class="btn btn-primary start-btn">Start Level 1</a>
+                <div class="stats-container">
+                    <h3>Your Progress</h3>
+                    <ul id="skills-learned">
+                        <!-- Skills will be populated by JS based on solved levels -->
+                    </ul>
+                </div>
+            </div>
+
+        </main>
+
+        <%- include('partials/byte-chat') %>
+    </div>
+
+    <script src="/js/gameData.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        window.currentLevel = 0; // Home
+    </script>
+</body>
+</html>
