@@ -44,12 +44,14 @@
     <div class="container">
 
 
-        <form method="GET" action="/level/17${typeof isolated !== 'undefined' && isolated ? '?isolated=true' : ''}">
-            <input type="text" name="q" placeholder="Search..." required value="${query}">
+        <form method="GET" action="/level/17<%- typeof isolated !== 'undefined' && isolated ? '?isolated=true' : '' %>">
+            <input type="text" name="q" placeholder="Search..." required value="<%- query %>">
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
-        <p>Search results for: <strong>${query}</strong></p>
-        ${flag ? `<div class="success-msg">${flag}` : ''}
+        <p>Search results for: <strong><%- typeof query !== 'undefined' ? query : '' %></strong></p>
+        <% if (typeof flag !== 'undefined' && flag) { %>
+            <div class="success-msg"><%- flag %></div>
+        <% } %>
         <p>Try injecting a script tag like &lt;script&gt;alert(1)&lt;/script&gt;.</p>
     </div>
 

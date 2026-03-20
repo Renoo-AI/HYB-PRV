@@ -44,11 +44,11 @@
     <div class="container">
 
 
-        <form method="POST" action="/level/13/register${typeof isolated !== 'undefined' && isolated ? '?isolated=true' : ''}" onsubmit="return validateForm()">
+        <form method="POST" action="/level/13/register<%- typeof isolated !== 'undefined' && isolated ? '?isolated=true' : '' %>" onsubmit="return validateForm()">
             <input type="text" name="username" id="username" placeholder="Username (min 5 chars)" required>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
-        ${error ? '<p class="error-msg">' + error + '</p>' : ''}
+        <%- typeof error !== 'undefined' && error ? '<p class=\"error-msg\">' + error + '</p>' : '' %>
         <script>
             function validateForm() {
                 if (document.getElementById('username').value.length < 5) {

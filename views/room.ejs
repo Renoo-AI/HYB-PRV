@@ -70,17 +70,31 @@
         /* Inline Byte Chat */
         .inline-byte {
             margin-top: auto; /* Push to bottom of learning pane */
-            background: rgba(15, 20, 35, 0.9);
-            border-top: 1px solid var(--border);
+            background: #0d1117;
+            border-top: 2px solid var(--accent);
             padding: 20px;
             position: sticky;
             bottom: 0;
-            box-shadow: 0 -10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.5);
+            font-family: var(--font-mono);
         }
         .byte-messages { height: 200px; }
 
         /* Make hint buttons smaller to fit the pane */
-        .btn-hint { padding: 8px 16px; font-size: 0.85rem; }
+        .btn-hint { padding: 6px 12px; font-size: 0.8rem; border-radius: 2px; }
+
+        /* Custom Input */
+        #flag-input {
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background: #0d1117;
+            font-family: var(--font-mono);
+            color: var(--accent);
+        }
+        #flag-input:focus {
+            border-color: var(--accent);
+            box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -88,34 +102,34 @@
         <!-- LEFT: Learning Platform -->
         <div id="learning-pane">
             <div class="learning-content">
-                <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i> Dashboard</a>
+                <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i> [ TERMINATE CONNECTION / RETURN ]</a>
 
-                <div class="room-badge"><%= roomData.category %></div>
-                <h1 class="room-title"><%= roomData.title %></h1>
-                <p class="room-desc"><i class="fas fa-crosshairs"></i> <strong>Target Theme:</strong> <%= roomData.theme %></p>
-                <p class="room-desc"><i class="fas fa-brain"></i> <strong>Skill Focus:</strong> <%= roomData.skill %></p>
+                <div class="room-badge">MODULE: <%= roomData.category %></div>
+                <h1 class="room-title" style="text-transform: uppercase;">TARGET-<%= levelNumber %>: <%= roomData.title %></h1>
+                <p class="room-desc"><i class="fas fa-crosshairs" style="color: var(--danger);"></i> <strong>TARGET INTEL:</strong> <%= roomData.theme %></p>
+                <p class="room-desc"><i class="fas fa-brain" style="color: var(--accent);"></i> <strong>EXPLOIT VECTOR:</strong> <%= roomData.skill %></p>
 
-                <div class="mission-box">
-                    <h4><i class="fas fa-scroll"></i> Mission Briefing</h4>
+                <div class="mission-box" style="border-left: 4px solid var(--danger); background: rgba(255,0,85,0.05);">
+                    <h4 style="color: var(--danger); text-transform: uppercase;"><i class="fas fa-scroll"></i> MISSION BRIEFING</h4>
                     <p style="margin: 0; color: #cbd5e1; line-height: 1.6;"><%= roomData.mission %></p>
                 </div>
 
                 <!-- Flag submission specific to this room -->
                 <div class="flag-submission" style="flex-direction: column; margin-top: 20px;">
-                    <h4 style="margin: 0 0 10px 0;">Submit Flag</h4>
+                    <h4 style="margin: 0 0 10px 0; color: var(--text-primary); text-transform: uppercase;">> SUBMIT ROOT FLAG</h4>
                     <div style="display: flex; gap: 10px;">
                         <input type="text" id="flag-input" placeholder="THM{...}" style="margin: 0;">
-                        <button id="btn-submit-flag" class="btn btn-primary" onclick="submitFlag(<%= levelNumber %>)">Submit</button>
+                        <button id="btn-submit-flag" class="btn btn-primary" onclick="submitFlag(<%= levelNumber %>)">[ EXECUTE ]</button>
                     </div>
                 </div>
                 <div id="flag-result"></div>
 
                 <div class="hints-section" style="margin-top: 30px;">
-                    <h4 style="margin: 0 0 10px 0; color: var(--text-secondary);">Need a nudge?</h4>
+                    <h4 style="margin: 0 0 10px 0; color: var(--text-secondary); text-transform: uppercase;">// ENCRYPTED INTEL</h4>
                     <div>
-                        <button id="btn-hint1" class="btn btn-hint">Hint 1</button>
-                        <button id="btn-hint2" class="btn btn-hint">Hint 2</button>
-                        <button id="btn-hint3" class="btn btn-hint">Hint 3</button>
+                        <button id="btn-hint1" class="btn btn-hint">[ DECRYPT HINT 1 ]</button>
+                        <button id="btn-hint2" class="btn btn-hint">[ DECRYPT HINT 2 ]</button>
+                        <button id="btn-hint3" class="btn btn-hint">[ DECRYPT HINT 3 ]</button>
                     </div>
                     <div id="hint-display"></div>
                 </div>
@@ -123,9 +137,9 @@
 
             <!-- Byte AI Chat (Integrated into sidebar) -->
             <div class="inline-byte">
-                <div class="byte-header" style="background: transparent; border-bottom: 1px solid rgba(255,255,255,0.05); padding-top: 0;">
-                    <span class="byte-name">🤖 Byte Assistant</span>
-                    <span class="byte-status">Online</span>
+                <div class="byte-header" style="background: transparent; border-bottom: 1px dashed var(--border); padding-top: 0; padding-bottom: 10px; margin-bottom: 10px;">
+                    <span class="byte-name" style="color: var(--text-primary);">🤖 Byte [AI_AGENT]</span>
+                    <span class="byte-status" style="font-size: 0.7rem;">LINK_ESTABLISHED</span>
                 </div>
                 <div id="byte-messages" class="byte-messages">
                     <!-- JS will inject messages -->
@@ -136,9 +150,9 @@
         <!-- RIGHT: Target Environment (Mini Lab) -->
         <div id="target-pane">
             <div class="target-header">
-                <div><i class="fas fa-server" style="color: #3b82f6;"></i> Target Machine: <%= roomData.theme %></div>
-                <div class="target-address">http://target.local/level/<%= levelNumber %></div>
-                <div><i class="fas fa-circle" style="color: #10b981;"></i> Running</div>
+                <div><i class="fas fa-server" style="color: var(--danger);"></i> TARGET_IP: <%= roomData.theme.replace(/\s+/g, '-').toLowerCase() %>.htb</div>
+                <div class="target-address" style="color: var(--accent); border-color: var(--accent);">http://<%= roomData.theme.replace(/\s+/g, '-').toLowerCase() %>.htb/level/<%= levelNumber %></div>
+                <div><i class="fas fa-circle" style="color: var(--success); text-shadow: 0 0 5px var(--success);"></i> PORT 80 OPEN</div>
             </div>
             <iframe src="/level/<%= levelNumber %>" class="target-iframe" id="target-frame"></iframe>
         </div>

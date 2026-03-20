@@ -1,37 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-    --bg-base: #06090f; /* Even darker base for better contrast */
-    --bg-surface: rgba(20, 25, 40, 0.7); /* Glassy surface */
-    --bg-surface-hover: rgba(30, 36, 56, 0.8);
-    --text-primary: #f8fafc; /* Brighter primary text */
+    /* HTB / THM / picoCTF Aesthetic */
+    --bg-base: #0a0e17; /* Deep midnight blue */
+    --bg-surface: #111926; /* Dark slate */
+    --bg-surface-hover: #1a2333;
+    --text-primary: #e0e7ff;
     --text-secondary: #94a3b8;
-    --accent: #3b82f6;
-    --accent-hover: #60a5fa;
-    --accent-glow: rgba(59, 130, 246, 0.5);
-    --success: #10b981;
-    --success-bg: rgba(16, 185, 129, 0.15); /* Slightly stronger */
-    --danger: #ef4444;
-    --danger-bg: rgba(239, 68, 68, 0.15);
-    --border: rgba(51, 65, 85, 0.5); /* Semi-transparent border */
+
+    /* Neon CTF Accents */
+    --accent: #00ff66; /* Neon hacker green */
+    --accent-hover: #33ff85;
+    --accent-glow: rgba(0, 255, 102, 0.4);
+
+    --success: #00ff66;
+    --success-bg: rgba(0, 255, 102, 0.1);
+    --danger: #ff0055;
+    --danger-bg: rgba(255, 0, 85, 0.1);
+
+    --border: #1e293b; /* Solid subtle border */
+    --border-glow: rgba(0, 255, 102, 0.2);
 
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-mono: 'Fira Code', 'Courier New', Courier, monospace;
 
-    /* New modern variables */
-    --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
-    --shadow-glow: 0 0 15px var(--accent-glow);
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.6);
+    --shadow-glow: 0 0 15px var(--accent-glow), 0 0 5px var(--accent-glow);
+    --transition-smooth: all 0.25s ease-out;
 }
 
 body {
     background-color: var(--bg-base);
     background-image:
-        radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08), transparent 40%),
-        radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.05), transparent 40%);
+        radial-gradient(circle at 10% 20%, rgba(0, 255, 102, 0.03), transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(0, 255, 102, 0.03), transparent 30%),
+        linear-gradient(rgba(10, 14, 23, 0.95), rgba(10, 14, 23, 0.95)),
+        url('data:image/svg+xml;utf8,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.03)"/></svg>');
     background-attachment: fixed;
     color: var(--text-primary);
-    font-family: var(--font-sans);
+    font-family: var(--font-mono); /* Force monospace for the whole app */
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
@@ -46,14 +53,12 @@ body {
 /* Sidebar Styling */
 #sidebar {
     width: 280px;
-    background: rgba(11, 15, 25, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: #0f1520;
     border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    box-shadow: 4px 0 24px rgba(0,0,0,0.4);
+    box-shadow: 5px 0 30px rgba(0,0,0,0.5);
     z-index: 100;
 }
 
@@ -62,8 +67,7 @@ body {
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    background: rgba(11, 15, 25, 0.95);
-    backdrop-filter: blur(10px);
+    background: #0f1520;
     z-index: 10;
 }
 
@@ -127,9 +131,10 @@ body {
 
 #sidebar ul li.active > a,
 #sidebar ul li a:hover {
-    color: var(--text-primary);
-    background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
+    color: var(--accent);
+    background: linear-gradient(90deg, rgba(0, 255, 102, 0.05) 0%, transparent 100%);
     padding-left: 28px; /* Slight indent on hover/active */
+    text-shadow: 0 0 8px var(--accent-glow);
 }
 
 .section-header {
@@ -177,48 +182,59 @@ h1 {
     color: var(--text-primary);
     margin: 0;
     letter-spacing: -0.03em;
-    background: linear-gradient(to right, #fff, #94a3b8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .progress-bar {
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-family: var(--font-mono);
-    font-weight: 600;
-    color: var(--text-secondary);
-    background: rgba(20, 25, 40, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    font-weight: 700;
+    color: var(--text-primary);
+    background: var(--bg-surface);
     padding: 8px 16px;
-    border-radius: 999px;
+    border-radius: 4px; /* Harder corners for CTF look */
     border: 1px solid var(--border);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border-left: 3px solid var(--accent);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     display: flex;
     align-items: center;
     gap: 8px;
+    text-transform: uppercase;
 }
 
 .progress-bar span {
-    color: var(--success);
-    text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+    color: var(--accent);
+    text-shadow: var(--shadow-glow);
 }
 
 .challenge-box {
     background: var(--bg-surface);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     padding: 40px;
-    border-radius: 16px;
+    border-radius: 8px;
     border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
     box-shadow: var(--shadow-soft);
     margin-bottom: 32px;
     transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.challenge-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
 }
 
 .challenge-box:hover {
-    border-color: rgba(59, 130, 246, 0.3);
-    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6), 0 0 20px rgba(59, 130, 246, 0.05);
+    border-color: var(--border-glow);
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 255, 102, 0.1);
 }
 
 .challenge-box h2 {
@@ -269,13 +285,14 @@ input[type="text"]:focus, input[type="password"]:focus {
 
 /* Modern Buttons */
 .btn {
-    padding: 14px 28px;
-    border: none;
-    border-radius: 10px;
+    padding: 12px 24px;
+    border: 1px solid transparent;
+    border-radius: 4px; /* Sharper */
     cursor: pointer;
     font-size: 1rem;
-    font-weight: 600;
-    font-family: var(--font-sans);
+    font-weight: 700;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
     transition: var(--transition-smooth);
     display: inline-flex;
     align-items: center;
@@ -283,6 +300,7 @@ input[type="text"]:focus, input[type="password"]:focus {
     gap: 8px;
     position: relative;
     overflow: hidden;
+    letter-spacing: 0.05em;
 }
 
 .btn::after {
@@ -290,7 +308,7 @@ input[type="text"]:focus, input[type="password"]:focus {
     position: absolute;
     top: 0; left: -100%;
     width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
     transition: all 0.4s ease;
 }
 
@@ -299,14 +317,17 @@ input[type="text"]:focus, input[type="password"]:focus {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--accent) 0%, #2563eb 100%);
-    color: #fff;
-    box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.1), 0 0 10px rgba(0, 255, 102, 0.1);
 }
 
 .btn-primary:hover:not(:disabled) {
+    background: rgba(0, 255, 102, 0.1);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    box-shadow: inset 0 0 15px rgba(0, 255, 102, 0.2), 0 0 20px rgba(0, 255, 102, 0.3);
+    text-shadow: 0 0 5px var(--accent-glow);
 }
 
 .btn-primary:active:not(:disabled) {
@@ -345,14 +366,15 @@ input[type="text"]:focus, input[type="password"]:focus {
 
 .hint-text {
     margin-top: 16px;
-    padding: 18px 24px;
-    background: linear-gradient(90deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.02) 100%);
-    border-left: 4px solid var(--accent);
-    border-radius: 0 12px 12px 0;
+    padding: 16px 24px;
+    background: rgba(0, 255, 102, 0.05);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 4px 4px 0;
     color: var(--text-primary);
-    font-size: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
     line-height: 1.6;
-    animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: slideInRight 0.3s ease-out;
 }
 
 @keyframes slideInRight {
@@ -363,18 +385,31 @@ input[type="text"]:focus, input[type="password"]:focus {
 .explanation-box {
     margin-top: 32px;
     padding: 32px;
-    background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.03) 100%);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    border-radius: 16px;
-    box-shadow: inset 0 2px 20px rgba(16, 185, 129, 0.05);
+    background: var(--bg-surface);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    box-shadow: inset 0 0 20px rgba(0, 255, 102, 0.05);
     animation: fadeUp 0.5s ease;
+    position: relative;
+}
+.explanation-box::after {
+    content: "SYSTEM LOG // ROOT ACCESS GRANTED";
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--bg-surface);
+    padding: 0 10px;
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 700;
 }
 
 .explanation-box h3 {
     margin-top: 0;
     color: var(--success);
     font-size: 1.35rem;
-    text-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    text-shadow: var(--shadow-glow);
+    text-transform: uppercase;
 }
 
 .explanation-box p {
@@ -435,25 +470,23 @@ input[type="text"]:focus, input[type="password"]:focus {
     animation: fadeUp 0.4s ease;
 }
 
-/* Byte AI Chat - Premium Glass Look */
+/* Byte AI Chat - Terminal UI Look */
 .byte-chat {
     position: fixed;
     bottom: 32px;
     right: 32px;
-    width: 340px; /* Slightly wider */
-    background: rgba(15, 20, 35, 0.7); /* More transparent for glass effect */
-    backdrop-filter: blur(24px); /* Stronger blur */
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Highlight top edge */
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 20px;
+    width: 350px;
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    border-radius: 4px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6), 0 0 20px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 255, 102, 0.05);
     z-index: 1000;
     overflow: hidden;
     transition: var(--transition-smooth);
+    font-family: var(--font-mono);
 }
 
 .byte-chat:hover {
@@ -462,9 +495,9 @@ input[type="text"]:focus, input[type="password"]:focus {
 }
 
 .byte-header {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 18px 20px;
+    background: #161b22;
+    border-bottom: 1px solid var(--border);
+    padding: 14px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -538,19 +571,22 @@ input[type="text"]:focus, input[type="password"]:focus {
 }
 
 .byte-msg {
-    background: rgba(30, 36, 56, 0.6);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 14px 18px;
-    border-radius: 16px;
-    border-bottom-left-radius: 4px;
-    font-size: 0.95rem;
+    background: transparent;
+    border-left: 2px solid var(--accent);
+    padding: 8px 16px;
+    border-radius: 0;
+    font-size: 0.9rem;
     color: var(--text-primary);
     align-self: flex-start;
-    max-width: 88%;
-    line-height: 1.5;
-    animation: chatBubbleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-width: 90%;
+    line-height: 1.6;
+    animation: chatBubbleIn 0.2s ease-out;
+}
+.byte-msg::before {
+    content: '>';
+    color: var(--accent);
+    margin-right: 8px;
+    font-weight: bold;
 }
 
 @keyframes chatBubbleIn {

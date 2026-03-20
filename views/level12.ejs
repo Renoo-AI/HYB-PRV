@@ -44,7 +44,7 @@
     <div class="container">
 
 
-        <form method="POST" action="/level/12/admin${typeof isolated !== 'undefined' && isolated ? '?isolated=true' : ''}">
+        <form method="POST" action="/level/12/admin<%- typeof isolated !== 'undefined' && isolated ? '?isolated=true' : '' %>">
             <button type="submit" class="btn btn-primary" disabled>Admin Panel</button>
         </form>
         <p>You can't click this button... or can you?</p>
