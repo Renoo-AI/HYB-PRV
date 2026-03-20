@@ -1,6 +1,49 @@
-<%- include(typeof isolated !== 'undefined' && isolated ? 'minimal_layout' : 'layout', { title: 'Level 13: Client-Side Validation Bypass', levelNumber: 13, body: `
-    <div class="challenge-box">
-        <h2>Bypass JS validation</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elite Club</title>
+    <!-- We inject some generic utility classes inline to avoid loading the dark CSS over light themes -->
+    <style>
+        body { font-family: sans-serif; margin: 0; padding: 0; height: 100vh; }
+        .bg-white { background: white; } .text-gray-800 { color: #1f2937; }
+        .bg-gray-100 { background: #f3f4f6; } .text-gray-900 { color: #111827; }
+        .bg-black { background: black; } .text-white { color: white; }
+        .bg-blue-50 { background: #eff6ff; } .text-blue-900 { color: #1e3a8a; }
+        .bg-gray-50 { background: #f9fafb; }
+        .bg-blue-900 { background: #1e3a8a; } .text-white { color: white; }
+        .bg-indigo-50 { background: #eef2ff; } .text-indigo-900 { color: #312e81; }
+        .bg-gray-900 { background: #111827; } .text-gold-500 { color: #eab308; }
+        .bg-teal-900 { background: #134e4a; } .text-teal-100 { color: #ccfbf1; }
+        .bg-zinc-900 { background: #18181b; } .text-zinc-300 { color: #d4d4d8; }
+        .bg-slate-800 { background: #1e293b; } .text-slate-200 { color: #e2e8f0; }
+        .bg-neutral-900 { background: #171717; } .text-green-400 { color: #4ade80; }
+        .bg-purple-900 { background: #581c87; } .text-purple-100 { color: #f3e8ff; }
+        .bg-stone-100 { background: #f5f5f4; } .text-stone-800 { color: #292524; }
+        .bg-blue-50 { background: #eff6ff; } .text-blue-800 { color: #1e40af; }
+        .bg-gray-200 { background: #e5e7eb; } .text-gray-800 { color: #1f2937; }
+        .bg-orange-50 { background: #fff7ed; } .text-orange-900 { color: #7c2d12; }
+        .bg-yellow-50 { background: #fefce8; } .text-yellow-900 { color: #713f12; }
+        .bg-red-900 { background: #7f1d1d; } .text-red-100 { color: #fee2e2; }
+        .font-mono { font-family: monospace; }
+        .font-sans { font-family: sans-serif; }
+        .font-serif { font-family: serif; }
+        .container { max-width: 800px; margin: 40px auto; padding: 20px; }
+        .header { padding: 20px; border-bottom: 2px solid currentColor; margin-bottom: 20px; opacity: 0.8; }
+        input, button { padding: 10px; margin: 5px 0; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px; }
+        button { cursor: pointer; background: #333; color: white; border: none; }
+        button:hover { opacity: 0.8; }
+    </style>
+</head>
+<body class="bg-purple-900 text-purple-100">
+    <div class="header">
+        <h1 style="margin:0;">The Elite Club</h1>
+        <p style="margin:5px 0 0 0; font-style: italic;">Members only area.</p>
+    </div>
+    <div class="container">
+
+
         <form method="POST" action="/level/13/register${typeof isolated !== 'undefined' && isolated ? '?isolated=true' : ''}" onsubmit="return validateForm()">
             <input type="text" name="username" id="username" placeholder="Username (min 5 chars)" required>
             <button type="submit" class="btn btn-primary">Register</button>
@@ -16,5 +59,8 @@
             }
         </script>
         <p>The form blocks short usernames. But what if you bypass the JS validation to send a shorter username?</p>
+
+
     </div>
-` }) %>
+</body>
+</html>

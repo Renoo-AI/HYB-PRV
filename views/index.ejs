@@ -18,18 +18,58 @@
                 </div>
             </header>
             <div class="content-body">
-                <p>Welcome, hacker! Your journey begins here. You have 20 challenges to conquer.</p>
-                <p>No external tools are required. Everything can be solved using your browser.</p>
-                <p>Byte, your AI assistant, is in the bottom right corner ready to help.</p>
+                <div style="background: rgba(30, 36, 56, 0.4); border: 1px solid var(--border); padding: 30px; border-radius: 12px; margin-bottom: 40px;">
+                    <h2 style="margin-top: 0; color: var(--accent); display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-terminal"></i> Mission Briefing
+                    </h2>
+                    <p style="font-size: 1.1rem; line-height: 1.6; color: var(--text-secondary);">
+                        Welcome to the <strong>Web Exploitation Playground</strong>. Here, you'll find 20 distinct virtual rooms designed to teach you the fundamentals of web security.
+                        No external tools are required—everything can be solved using just your browser and your wits.
+                        Byte, your AI companion, will guide you through each environment.
+                    </p>
+                    <a href="/room/1" class="btn btn-primary mt-2">Start the Adventure <i class="fas fa-play" style="margin-left: 5px;"></i></a>
+                </div>
 
-                <a href="/level/1" class="btn btn-primary start-btn">Start Level 1</a>
-                <div class="stats-container">
-                    <h3>Your Progress</h3>
+                <div class="rooms-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+                    <%
+                        // Group rooms by category
+                        const categories = {};
+                        for (let i = 1; i <= 20; i++) {
+                            const room = gameData[i];
+                            if (!categories[room.category]) categories[room.category] = [];
+                            categories[room.category].push({ id: i, ...room });
+                        }
+                    %>
+
+                    <% for (const cat in categories) { %>
+                        <div style="grid-column: 1 / -1; margin-top: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px;">
+                            <h3 style="color: var(--text-primary); margin: 0;"><%= cat %></h3>
+                        </div>
+                        <% categories[cat].forEach(room => { %>
+                            <a href="/room/<%= room.id %>" class="room-card" style="display: block; background: rgba(15, 20, 35, 0.6); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-decoration: none; transition: var(--transition-smooth);">
+                                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                                    <span style="background: rgba(59, 130, 246, 0.2); color: var(--accent); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">Room <%= room.id %></span>
+                                    <span id="badge-<%= room.id %>" class="status-badge" style="color: var(--text-secondary); font-size: 0.8rem;"><i class="fas fa-lock"></i> Locked</span>
+                                </div>
+                                <h4 style="color: #fff; margin: 0 0 10px 0; font-size: 1.1rem;"><%= room.title %></h4>
+                                <p style="color: var(--text-secondary); font-size: 0.85rem; margin: 0; line-height: 1.4;"><%= room.theme %></p>
+                            </a>
+                        <% }); %>
+                    <% } %>
+                </div>
+
+                <div class="stats-container" style="margin-top: 60px;">
+                    <h3>Your Achievements</h3>
                     <ul id="skills-learned">
                         <!-- Skills will be populated by JS based on solved levels -->
                     </ul>
                 </div>
             </div>
+
+            <style>
+                .room-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); border-color: rgba(59, 130, 246, 0.4) !important; }
+                .status-solved { color: var(--success) !important; }
+            </style>
 
         </main>
 

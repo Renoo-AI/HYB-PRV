@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= roomData.title %> - Room <%= levelNumber %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body { margin: 0; padding: 0; display: flex; height: 100vh; overflow: hidden; }
+        #room-container { display: flex; width: 100%; height: 100%; }
+        #learning-pane {
+            width: 40%;
+            min-width: 400px;
+            background: var(--bg-surface);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+        #target-pane {
+            flex: 1;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+        }
+        .target-header {
+            background: #111;
+            padding: 10px 20px;
+            color: #aaa;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+        .target-address {
+            background: #000;
+            padding: 5px 15px;
+            border-radius: 4px;
+            border: 1px solid #222;
+            color: #4ade80;
+            width: 60%;
+        }
+        .target-iframe {
+            flex: 1;
+            border: none;
+            width: 100%;
+            height: 100%;
+            background: #fff; /* Most target apps will be white unless styled dark */
+        }
+
+        /* Learning Pane Content */
+        .learning-content { padding: 30px; }
+        .back-btn { display: inline-flex; align-items: center; color: var(--text-secondary); text-decoration: none; margin-bottom: 20px; font-weight: 600; font-size: 0.9rem; }
+        .back-btn i { margin-right: 8px; }
+        .back-btn:hover { color: var(--accent); }
+
+        .room-badge { display: inline-block; background: rgba(59, 130, 246, 0.2); color: var(--accent); padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.5px; }
+        .room-title { margin-top: 0; font-size: 2rem; color: #fff; margin-bottom: 10px; }
+        .room-desc { color: var(--text-secondary); line-height: 1.6; font-size: 1.05rem; }
+
+        .mission-box { background: rgba(0,0,0,0.3); border-left: 4px solid var(--accent); padding: 20px; border-radius: 0 8px 8px 0; margin: 30px 0; }
+        .mission-box h4 { margin-top: 0; color: var(--text-primary); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+
+        /* Inline Byte Chat */
+        .inline-byte {
+            margin-top: auto; /* Push to bottom of learning pane */
+            background: rgba(15, 20, 35, 0.9);
+            border-top: 1px solid var(--border);
+            padding: 20px;
+            position: sticky;
+            bottom: 0;
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.2);
+        }
+        .byte-messages { height: 200px; }
+
+        /* Make hint buttons smaller to fit the pane */
+        .btn-hint { padding: 8px 16px; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div id="room-container">
+        <!-- LEFT: Learning Platform -->
+        <div id="learning-pane">
+            <div class="learning-content">
+                <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i> Dashboard</a>
+
+                <div class="room-badge"><%= roomData.category %></div>
+                <h1 class="room-title"><%= roomData.title %></h1>
+                <p class="room-desc"><i class="fas fa-crosshairs"></i> <strong>Target Theme:</strong> <%= roomData.theme %></p>
+                <p class="room-desc"><i class="fas fa-brain"></i> <strong>Skill Focus:</strong> <%= roomData.skill %></p>
+
+                <div class="mission-box">
+                    <h4><i class="fas fa-scroll"></i> Mission Briefing</h4>
+                    <p style="margin: 0; color: #cbd5e1; line-height: 1.6;"><%= roomData.mission %></p>
+                </div>
+
+                <!-- Flag submission specific to this room -->
+                <div class="flag-submission" style="flex-direction: column; margin-top: 20px;">
+                    <h4 style="margin: 0 0 10px 0;">Submit Flag</h4>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="flag-input" placeholder="THM{...}" style="margin: 0;">
+                        <button id="btn-submit-flag" class="btn btn-primary" onclick="submitFlag(<%= levelNumber %>)">Submit</button>
+                    </div>
+                </div>
+                <div id="flag-result"></div>
+
+                <div class="hints-section" style="margin-top: 30px;">
+                    <h4 style="margin: 0 0 10px 0; color: var(--text-secondary);">Need a nudge?</h4>
+                    <div>
+                        <button id="btn-hint1" class="btn btn-hint">Hint 1</button>
+                        <button id="btn-hint2" class="btn btn-hint">Hint 2</button>
+                        <button id="btn-hint3" class="btn btn-hint">Hint 3</button>
+                    </div>
+                    <div id="hint-display"></div>
+                </div>
+            </div>
+
+            <!-- Byte AI Chat (Integrated into sidebar) -->
+            <div class="inline-byte">
+                <div class="byte-header" style="background: transparent; border-bottom: 1px solid rgba(255,255,255,0.05); padding-top: 0;">
+                    <span class="byte-name">🤖 Byte Assistant</span>
+                    <span class="byte-status">Online</span>
+                </div>
+                <div id="byte-messages" class="byte-messages">
+                    <!-- JS will inject messages -->
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Target Environment (Mini Lab) -->
+        <div id="target-pane">
+            <div class="target-header">
+                <div><i class="fas fa-server" style="color: #3b82f6;"></i> Target Machine: <%= roomData.theme %></div>
+                <div class="target-address">http://target.local/level/<%= levelNumber %></div>
+                <div><i class="fas fa-circle" style="color: #10b981;"></i> Running</div>
+            </div>
+            <iframe src="/level/<%= levelNumber %>" class="target-iframe" id="target-frame"></iframe>
+        </div>
+    </div>
+
+    <!-- We inject the botIntro so main.js knows what to say on load -->
+    <script>
+        window.currentLevel = <%= levelNumber %>;
+        window.roomBotIntro = "<%= roomData.botIntro.replace(/"/g, '\\"') %>";
+    </script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
